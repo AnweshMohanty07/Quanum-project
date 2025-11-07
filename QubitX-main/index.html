@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QubitX - Interactive Qubit Visualization Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-atom"></i>
+                <span>QubitX</span>
+            </div>
+            <div class="nav-links">
+                <a href="#hero" class="nav-link">Home</a>
+                <a href="#basics" class="nav-link">Basics</a>
+                <a href="#representations" class="nav-link">Representations</a>
+                <a href="#interactive" class="nav-link">Interactive</a>
+                <a href="#exercises" class="nav-link">Exercises</a>
+                <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                    <i class="fas fa-moon theme-icon-dark"></i>
+                    <i class="fas fa-sun theme-icon-light"></i>
+                    <span class="toggle-slider"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero navbar-offset">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    Interactive Qubit Visualization Tool
+                    <span class="quantum-particle">⚛️</span>
+                </h1>
+                <div class="project-topics">
+                    <div class="topic-grid">
+                        <div class="topic-item">
+                            <span class="topic-number">1</span>
+                            <span class="topic-name">Qubits</span>
+                        </div>
+                        <div class="topic-item">
+                            <span class="topic-number">2</span>
+                            <span class="topic-name">Representing Qubit States</span>
+                        </div>
+                        <div class="topic-item">
+                            <span class="topic-number">3</span>
+                            <span class="topic-name">Dirac Bra-Ket Notation</span>
+                        </div>
+                        <div class="topic-item">
+                            <span class="topic-number">4</span>
+                            <span class="topic-name">Bloch Sphere Visualization</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="hero-subtitle">
+                    Master quantum computing fundamentals through interactive visualizations
+                </p>
+                <div class="hero-features">
+                    <div class="feature-item">
+                        <i class="fas fa-cube"></i>
+                        <span>Qubit States</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-wave-square"></i>
+                        <span>Dirac Notation</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-globe"></i>
+                        <span>Bloch Sphere</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-cogs"></i>
+                        <span>Quantum Gates</span>
+                    </div>
+                </div>
+                <button class="cta-button" onclick="scrollToSection('interactive')">
+                    Start Exploring
+                    <i class="fas fa-rocket"></i>
+                </button>
+            </div>
+            <div class="hero-visual">
+                <div class="quantum-sphere">
+                    <div class="sphere-rings">
+                        <div class="ring ring-1"></div>
+                        <div class="ring ring-2"></div>
+                        <div class="ring ring-3"></div>
+                    </div>
+                    <div class="quantum-state"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Basics Section -->
+    <section id="basics" class="section navbar-offset">
+        <div class="container">
+            <div class="quantum-basics-section">
+                <h2 class="section-title">Ready to Learn?</h2>
+                <div class="basics-button-container">
+                    <button class="quantum-basics-btn" onclick="openQuantumBasicsModal()">
+                        <i class="fas fa-rocket"></i>
+                        <span>Explore Quantum Basics</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quantum Basics Modal -->
+    <div id="quantumBasicsModal" class="quantum-modal">
+        <div class="modal-overlay" onclick="closeQuantumBasicsModal()"></div>
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>Quantum Computing Fundamentals</h2>
+                <button class="modal-close-btn" onclick="closeQuantumBasicsModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="fundamentals-section">
+                    <div class="fund-card">
+                        <div class="fund-icon">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <h3>What is Quantum Computing?</h3>
+                        <p>Quantum computing is a revolutionary technology that uses quantum mechanical phenomena like superposition and entanglement to process information in ways that classical computers cannot. Unlike classical bits that are either 0 or 1, quantum bits (qubits) can exist in multiple states simultaneously.</p>
+                        <div class="key-points">
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Harnesses quantum mechanics for computation</span>
+                            </div>
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Exponentially faster for certain problems</span>
+                            </div>
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Fundamentally different from classical computing</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fund-card comparison-card-modal">
+                        <div class="fund-icon">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
+                        <h3>Classical Bits vs Qubits</h3>
+                        <div class="comparison-grid-modal">
+                            <div class="bit-section classical">
+                                <h4><i class="fas fa-toggle-off"></i> Classical Bits</h4>
+                                <ul>
+                                    <li>Can only be 0 or 1</li>
+                                    <li>Deterministic measurement</li>
+                                    <li>No superposition</li>
+                                    <li>Limited information capacity</li>
+                                </ul>
+                                <div class="visual-demo">
+                                    <div class="bit-demo classical-demo">0</div>
+                                    <span>or</span>
+                                    <div class="bit-demo classical-demo">1</div>
+                                </div>
+                            </div>
+                            <div class="bit-section quantum">
+                                <h4><i class="fas fa-atom"></i> Qubits</h4>
+                                <ul>
+                                    <li>Can be |0⟩, |1⟩, or superposition</li>
+                                    <li>Probabilistic measurement</li>
+                                    <li>Infinite possible states</li>
+                                    <li>Exponential information capacity</li>
+                                </ul>
+                                <div class="equation-demo">
+                                    <div class="qubit-equation-modal">|ψ⟩ = α|0⟩ + β|1⟩</div>
+                                    <div class="constraint-modal">|α|² + |β|² = 1</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fund-card">
+                        <div class="fund-icon">
+                            <i class="fas fa-wave-square"></i>
+                        </div>
+                        <h3>Superposition and Measurement</h3>
+                        <p><strong>Superposition</strong> allows qubits to exist in multiple states simultaneously until measured. This is like a coin spinning in the air - it's both heads and tails until it lands.</p>
+                        <div class="concept-demo">
+                            <div class="superposition-visual">
+                                <div class="state-visual">
+                                    <span class="state-label">Before Measurement:</span>
+                                    <div class="superposition-state">|0⟩ + |1⟩</div>
+                                </div>
+                                <div class="measurement-arrow">
+                                    <i class="fas fa-arrow-down"></i>
+                                    <span>Measurement</span>
+                                </div>
+                                <div class="state-visual">
+                                    <span class="state-label">After Measurement:</span>
+                                    <div class="collapsed-state">|0⟩ or |1⟩</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fund-card">
+                        <div class="fund-icon">
+                            <i class="fas fa-angle-right"></i>
+                        </div>
+                        <h3>Dirac Notation and Quantum States</h3>
+                        <p>Dirac notation (bra-ket notation) is the mathematical language of quantum mechanics, providing a clean way to represent quantum states and operations.</p>
+                        <div class="notation-examples">
+                            <div class="notation-item">
+                                <code>|ψ⟩</code>
+                                <span>A quantum state (ket)</span>
+                            </div>
+                            <div class="notation-item">
+                                <code>⟨φ|</code>
+                                <span>The complex conjugate (bra)</span>
+                            </div>
+                            <div class="notation-item">
+                                <code>⟨φ|ψ⟩</code>
+                                <span>Inner product (bracket)</span>
+                            </div>
+                            <div class="notation-item">
+                                <code>|0⟩, |1⟩</code>
+                                <span>Computational basis states</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fund-card applications-card">
+                        <div class="fund-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>Real-World Applications</h3>
+                        <p>Quantum computing promises to revolutionize multiple fields through exponential speedups for specific problem types.</p>
+                        <div class="applications-grid">
+                            <div class="app-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <div>
+                                    <h4>Cryptography</h4>
+                                    <p>Breaking current encryption and creating quantum-safe security</p>
+                                </div>
+                            </div>
+                            <div class="app-item">
+                                <i class="fas fa-pills"></i>
+                                <div>
+                                    <h4>Drug Discovery</h4>
+                                    <p>Simulating molecular interactions for new medicines</p>
+                                </div>
+                            </div>
+                            <div class="app-item">
+                                <i class="fas fa-chart-line"></i>
+                                <div>
+                                    <h4>Financial Modeling</h4>
+                                    <p>Optimizing portfolios and risk analysis</p>
+                                </div>
+                            </div>
+                            <div class="app-item">
+                                <i class="fas fa-brain"></i>
+                                <div>
+                                    <h4>AI & Machine Learning</h4>
+                                    <p>Accelerating pattern recognition and optimization</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Representations Section -->
+    <section id="representations" class="section alt-bg navbar-offset">
+        <div class="container">
+            <h2 class="section-title">Qubit Representations</h2>
+            <div class="representations-grid">
+                <div class="rep-card">
+                    <div class="rep-header">
+                        <i class="fas fa-vector-square"></i>
+                        <h3>Vector Form</h3>
+                    </div>
+                    <div class="rep-content">
+                        <div class="math-display">
+                            |ψ⟩ = [α, β]ᵀ
+                        </div>
+                        <p>Complex vector in 2D Hilbert space</p>
+                    </div>
+                </div>
+
+                <div class="rep-card">
+                    <div class="rep-header">
+                        <i class="fas fa-angle-right"></i>
+                        <h3>Dirac Notation</h3>
+                    </div>
+                    <div class="rep-content">
+                        <div class="math-display">
+                            ⟨φ|ψ⟩
+                        </div>
+                        <p>Elegant mathematical framework</p>
+                    </div>
+                </div>
+
+                <div class="rep-card">
+                    <div class="rep-header">
+                        <i class="fas fa-chart-bar"></i>
+                        <h3>Probabilities</h3>
+                    </div>
+                    <div class="rep-content">
+                        <div class="math-display">
+                            P(0) = |α|²
+                        </div>
+                        <p>Measurement outcome probabilities</p>
+                    </div>
+                </div>
+
+                <div class="rep-card">
+                    <div class="rep-header">
+                        <i class="fas fa-globe"></i>
+                        <h3>Bloch Sphere</h3>
+                    </div>
+                    <div class="rep-content">
+                        <div class="math-display">
+                            (θ, φ)
+                        </div>
+                        <p>Geometric visualization on unit sphere</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Section -->
+    <section id="interactive" class="section navbar-offset">
+        <div class="container">
+            <h2 class="section-title">Interactive Exploration</h2>
+            
+            <!-- Educational Info Panel -->
+            <div class="educational-panel">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>How to Use</h4>
+                            <p>Adjust θ and φ sliders to explore different quantum states. Apply gates to see transformations. Watch how probabilities and Bloch sphere position change in real-time!</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Key Insight</h4>
+                            <p>Every point on the Bloch sphere represents a valid qubit state. The position determines measurement probabilities and quantum behavior.</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Quantum Gates</h4>
+                            <p>Gates are rotations on the Bloch sphere. X flips states, H creates superposition, and phase gates add rotation around Z-axis.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="interactive-container">
+                <div class="controls-panel">
+                    <h3>Quantum State Controls</h3>
+                    
+                    <div class="control-group">
+                        <label for="theta-slider">Polar Angle (θ)</label>
+                        <input type="range" id="theta-slider" min="0" max="3.14159" step="0.01" value="0">
+                        <span id="theta-value">0.000</span>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="phi-slider">Azimuthal Angle (φ)</label>
+                        <input type="range" id="phi-slider" min="0" max="6.28318" step="0.01" value="0">
+                        <span id="phi-value">0.000</span>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="gate-select">Apply Quantum Gate</label>
+                        <select id="gate-select">
+                            <option value="none">None</option>
+                            <option value="x">Pauli-X (NOT)</option>
+                            <option value="y">Pauli-Y</option>
+                            <option value="z">Pauli-Z</option>
+                            <option value="h">Hadamard</option>
+                            <option value="s">S Gate</option>
+                            <option value="t">T Gate</option>
+                        </select>
+                    </div>
+
+                    <div class="state-info">
+                        <h4>Current Quantum State</h4>
+                        <div class="state-details">
+                            <div class="state-section">
+                                <h5>Dirac Notation</h5>
+                                <div id="state-display">|ψ⟩ = |0⟩</div>
+                            </div>
+                            <div class="state-section">
+                                <h5>Complex Amplitudes</h5>
+                                <div id="amplitudes-display">
+                                    α = 1.000+0.000i<br>
+                                    β = 0.000+0.000i
+                                </div>
+                            </div>
+                            <div class="state-section">
+                                <h5>Amplitude Magnitudes</h5>
+                                <div id="magnitudes-display">
+                                    |α| = 1.000<br>
+                                    |β| = 0.000
+                                </div>
+                            </div>
+                            <div class="state-section">
+                                <h5>Phases</h5>
+                                <div id="phases-display">
+                                    arg(α) = 0.000 rad<br>
+                                    arg(β) = 0.000 rad
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="visualization-panel">
+                    <!-- Quick State Selection -->
+                    <div class="preset-states">
+                        <h4>Common Quantum States</h4>
+                        <p class="preset-description">Click to instantly explore these fundamental quantum states:</p>
+                        
+                        <div class="state-buttons-grid">
+                            <button class="state-button" onclick="setState(0, 0, 'Ground State |0⟩')" title="Ground State |0⟩">
+                                |0⟩
+                            </button>
+
+                            <button class="state-button" onclick="setState(Math.PI, 0, 'Excited State |1⟩')" title="Excited State |1⟩">
+                                |1⟩
+                            </button>
+
+                            <button class="state-button" onclick="setState(Math.PI/2, 0, 'Plus State |+⟩')" title="Plus State |+⟩">
+                                |+⟩
+                            </button>
+
+                            <button class="state-button" onclick="setState(Math.PI/2, Math.PI, 'Minus State |-⟩')" title="Minus State |-⟩">
+                                |-⟩
+                            </button>
+
+                            <button class="state-button" onclick="setState(Math.PI/2, Math.PI/2, 'Y+ State |i+⟩')" title="Y+ State |i+⟩">
+                                |i+⟩
+                            </button>
+
+                            <button class="state-button" onclick="setState(Math.PI/2, 3*Math.PI/2, 'Y- State |i-⟩')" title="Y- State |i-⟩">
+                                |i-⟩
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="viz-container">
+                        <div class="viz-item">
+                            <div class="viz-header">
+                                <h4>Measurement Probabilities</h4>
+                                <div class="info-tooltip">
+                                    <i class="fas fa-info-circle"></i>
+                                    <div class="tooltip-content">
+                                        <h5>What are Measurement Probabilities?</h5>
+                                        <p><strong>P(|0⟩) = |α|²</strong> - Probability of measuring the qubit in state |0⟩</p>
+                                        <p><strong>P(|1⟩) = |β|²</strong> - Probability of measuring the qubit in state |1⟩</p>
+                                        <p>These probabilities are derived from the squared magnitudes of the complex amplitudes α and β.</p>
+                                        <p><em>Note: P(|0⟩) + P(|1⟩) = 1 (normalization)</em></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="probability-chart"></div>
+                            <div class="chart-info">
+                                <div class="measurement-details">
+                                    <div class="detail-item">
+                                        <span class="label">P(|0⟩):</span>
+                                        <span id="prob-0-value" class="value">1.000</span>
+                                        <span class="percentage" id="prob-0-percent">(100.0%)</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="label">P(|1⟩):</span>
+                                        <span id="prob-1-value" class="value">0.000</span>
+                                        <span class="percentage" id="prob-1-percent">(0.0%)</span>
+                                    </div>
+                                    <div class="detail-item total">
+                                        <span class="label">Total:</span>
+                                        <span id="prob-total" class="value">1.000</span>
+                                        <span class="check">✓</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="viz-item">
+                            <div class="viz-header">
+                                <h4>Bloch Sphere Representation</h4>
+                                <div class="bloch-controls">
+                                    <button id="auto-rotate-btn" class="animation-btn" onclick="toggleAutoRotation()">
+                                        <i class="fas fa-sync-alt"></i>
+                                        Auto Rotate
+                                    </button>
+                                </div>
+                                <div class="info-tooltip">
+                                    <i class="fas fa-info-circle"></i>
+                                    <div class="tooltip-content">
+                                        <h5>What is the Bloch Sphere?</h5>
+                                        <p>A 3D geometric representation of qubit states where:</p>
+                                        <ul>
+                                            <li><strong>North Pole (Z+):</strong> |0⟩ state</li>
+                                            <li><strong>South Pole (Z-):</strong> |1⟩ state</li>
+                                            <li><strong>X-axis:</strong> |+⟩ and |-⟩ states</li>
+                                            <li><strong>Y-axis:</strong> |i+⟩ and |i-⟩ states</li>
+                                        </ul>
+                                        <p><strong>Coordinates:</strong> Any point (θ, φ) represents a valid qubit state</p>
+                                        <p><em>θ</em> = polar angle (0 to π), <em>φ</em> = azimuthal angle (0 to 2π)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="bloch-sphere"></div>
+                            <div class="chart-info">
+                                <div class="bloch-details">
+                                    <div class="coords-section">
+                                        <h5>Spherical Coordinates</h5>
+                                        <div class="coord-item">
+                                            <span class="coord-label">θ (polar):</span>
+                                            <span id="theta-display" class="coord-value">0.000</span>
+                                            <span class="coord-unit">rad</span>
+                                            <span id="theta-degrees" class="coord-degrees">(0.0°)</span>
+                                        </div>
+                                        <div class="coord-item">
+                                            <span class="coord-label">φ (azimuthal):</span>
+                                            <span id="phi-display" class="coord-value">0.000</span>
+                                            <span class="coord-unit">rad</span>
+                                            <span id="phi-degrees" class="coord-degrees">(0.0°)</span>
+                                        </div>
+                                    </div>
+                                    <div class="coords-section">
+                                        <h5>Cartesian Coordinates</h5>
+                                        <div class="cartesian-coords">
+                                            <span>X: <span id="x-coord" class="coord-value">0.000</span></span>
+                                            <span>Y: <span id="y-coord" class="coord-value">0.000</span></span>
+                                            <span>Z: <span id="z-coord" class="coord-value">1.000</span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bloch-sphere-info">
+                        <div class="info-grid-horizontal">
+                            <div class="info-item-enhanced">
+                                <i class="fas fa-globe-americas"></i>
+                                <div class="info-content-enhanced">
+                                    <strong>Bloch Sphere Mapping</strong>
+                                    <p>Each state corresponds to a specific point on the Bloch sphere</p>
+                                </div>
+                            </div>
+                            <div class="info-item-enhanced">
+                                <i class="fas fa-arrows-alt-v"></i>
+                                <div class="info-content-enhanced">
+                                    <strong>Pole States</strong>
+                                    <p>|0⟩ and |1⟩ are located at the north and south poles respectively</p>
+                                </div>
+                            </div>
+                            <div class="info-item-enhanced">
+                                <i class="fas fa-circle"></i>
+                                <div class="info-content-enhanced">
+                                    <strong>Equatorial States</strong>
+                                    <p>Superposition states lie on the equator with different phases</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="interaction-hint">
+                        <i class="fas fa-hand-pointer"></i>
+                        <span>Use the state buttons above to instantly explore quantum states and see real-time visualization updates</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercises Section -->
+    <section id="exercises" class="section alt-bg navbar-offset">
+        <div class="container">
+            <h2 class="section-title">Practice Exercises</h2>
+            <div class="exercises-grid">
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <i class="fas fa-puzzle-piece"></i>
+                        <h3>Exercise 1: State Creation</h3>
+                    </div>
+                    <div class="exercise-content">
+                        <p>Create a qubit state with:</p>
+                        <ul>
+                            <li>75% chance of measuring |0⟩</li>
+                            <li>25% chance of measuring |1⟩</li>
+                        </ul>
+                        <button class="exercise-btn" onclick="showSolution(1)">Show Solution</button>
+                        <div id="solution-1" class="solution hidden">
+                            <p><strong>Solution:</strong> α = √0.75 ≈ 0.866, β = √0.25 = 0.5</p>
+                            <p>θ ≈ 1.047 radians (60°), φ = 0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <i class="fas fa-cogs"></i>
+                        <h3>Exercise 2: Gate Sequences</h3>
+                    </div>
+                    <div class="exercise-content">
+                        <p>Starting from |0⟩, apply the sequence:</p>
+                        <ul>
+                            <li>Hadamard → X → Hadamard</li>
+                        </ul>
+                        <button class="exercise-btn" onclick="showSolution(2)">Show Solution</button>
+                        <div id="solution-2" class="solution hidden">
+                            <p><strong>Solution:</strong> |0⟩ → |+⟩ → |-⟩ → |1⟩</p>
+                            <p>Final state: |1⟩</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <i class="fas fa-calculator"></i>
+                        <h3>Exercise 3: Inner Products</h3>
+                    </div>
+                    <div class="exercise-content">
+                        <p>Calculate the inner product:</p>
+                        <ul>
+                            <li>⟨+|0⟩ = ?</li>
+                        </ul>
+                        <button class="exercise-btn" onclick="showSolution(3)">Show Solution</button>
+                        <div id="solution-3" class="solution hidden">
+                            <p><strong>Solution:</strong> ⟨+|0⟩ = 1/√2 ≈ 0.707</p>
+                            <p>This represents the probability amplitude of measuring |+⟩ when the system is in |0⟩</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>QubitX</h4>
+                    <p>Interactive Qubit Visualization Tool - Master quantum computing fundamentals through interactive exploration.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Core Topics</h4>
+                    <ul>
+                        <li><a href="#" onclick="openTopicModal('qubits')" class="topic-link"></a>Qubits</a></li>
+                        <li><a href="#" onclick="openTopicModal('states')" class="topic-link">Representing Qubit States</a></li>
+                        <li><a href="#" onclick="openTopicModal('dirac')" class="topic-link">Dirac Bra-Ket Notation</a></li>
+                        <li><a href="#" onclick="openTopicModal('bloch')" class="topic-link">Bloch Sphere Visualization</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Learning Path</h4>
+                    <ul>
+                        <li><a href="#" onclick="openLearningModal('basic')" class="topic-link">Basic Concepts</a></li>
+                        <li><a href="#" onclick="openLearningModal('interactive')" class="topic-link">Interactive Exploration</a></li>
+                        <li><a href="#" onclick="openLearningModal('practice')" class="topic-link">Practice Exercises</a></li>
+                        <li><a href="#" onclick="openLearningModal('advanced')" class="topic-link">Advanced Topics</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 QubitX - Interactive Qubit Visualization Tool. Built for quantum education.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Topic Information Modals -->
+    <div id="topicModal" class="topic-info-modal">
+        <div class="modal-overlay" onclick="closeTopicModal()"></div>
+        <div class="topic-modal-container">
+            <div class="modal-header">
+                <h2 id="topicModalTitle">Topic Information</h2>
+                <button class="modal-close-btn" onclick="closeTopicModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content" id="topicModalContent">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
